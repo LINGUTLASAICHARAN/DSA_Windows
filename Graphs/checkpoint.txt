@@ -2,4 +2,4 @@
 
 Aditya Verma(DP) -> Min coin change problem 
 
-Tuf (Graphs) -> DetectAcycle in graph
+Tuf (Graphs) -> DetectAcycle in graph done

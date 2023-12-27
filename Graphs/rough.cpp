@@ -6,6 +6,6 @@ int main() {
 
     int a = 10;
     int * x = &a;
-    cout << *x;
+    cout << abs(-5);
 
 }
