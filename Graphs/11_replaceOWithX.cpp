@@ -7,9 +7,7 @@ using namespace std;
 class Solution{
 
     private :
-
-  vector<pair<int,int>> bfs(vector<vector<int>> &isVisited, int i,int j, vector<vector<char>>mat, int n, int m) {
-    vector<pair<int,int>> ans;
+    void bfs(vector<vector<int>> &isVisited, int i,int j, vector<vector<char>>mat, int n, int m) {
     queue<pair<int,int>> q;
     q.push({i,j});
     isVisited[i][j] = 1;    
@@ -17,7 +15,6 @@ class Solution{
     int dy []= {0,0,1,-1};
     while (q.size() != 0)
     {
-        ans.push_back(q.front());
         int r = q.front().first;
         int c = q.front().second;
         q.pop();
@@ -32,36 +29,33 @@ class Solution{
             }
         }
     }
-    return ans;
    }
 
 public:
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
         vector<vector<char>> ans = mat;
-        vector<vector<pair<int,int>>> groups;
         vector<vector<int>> isVisited(n, vector<int>(m, 0));
+
 
         for (int i = 0; i < n; i++)
         {
             for(int j = 0; j < m ; j++) {
-                if(mat[i][j] == 'O' && !isVisited[i][j]) {
-                    groups.push_back(bfs(isVisited, i,j, mat,n,m));
+                if(mat[i][j] == 'O' && !isVisited[i][j] && (i == 0 || i == n-1 || j == 0 || j == m-1)) {
+                    // do a bfs only if the O is in the border only these can keep a group of Os from being covered on all sides with Xs
+                    bfs(isVisited, i,j, mat,n,m);
                 }
             }
         }
 
-        for( auto group : groups) {
-            
-            bool isInside = true;
-            for(auto p : group) {
-                // always be careful when writing big conitions in if 
-                isInside = isInside && (p.first != n-1 && p.first != 0 && p.second != 0 && p.second != m-1);
-            }
-            if(isInside) {
-                for(auto p : group){
-                    ans[p.first][p.second] = 'X';
-                }
+
+        for (int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m ; j++) {
+                    if(mat[i][j] == 'O' && !isVisited[i][j]) {
+                        // if any O is not visited it is not connected to a O on border and hence its is itself surrounded by Xs or is a part of a group that is engulfed by X s hence marking it as X
+                         ans[i][j] = 'X';
+                    }
             }
         }
 
