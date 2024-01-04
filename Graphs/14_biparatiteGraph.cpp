@@ -44,6 +44,7 @@ private:
 public:
     bool isBipartite(int V, vector<int> adj[])
     {
+        // when a graph is not biparatite then it surely has a cycle with odd number of nodes in it 
         vector<int> isColored(V, 0);
 
         for (int i = 0; i < V; i++)
