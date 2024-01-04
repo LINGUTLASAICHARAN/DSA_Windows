@@ -10,7 +10,7 @@ private:
     {
         // doing BFS
         queue<int> q;
-        isColored[i] = 1; // coloring it 1
+        isColored[i] = 0; // coloring it 0
         q.push(i);
 
         while (q.size() != 0)
@@ -18,22 +18,15 @@ private:
             int head = q.front();
             q.pop();
 
-            for (int j = 0; j < adj[head].size(); j++)
+            for (auto adjNode : adj[head])
             {
-                if (!isColored[adj[head][j]])
+                if (isColored[adjNode] == -1)
                 {
-                    // if an adjacent node is not colored color the opposite of heads color and push it to queue
-                    q.push(adj[head][j]);
-                    if (isColored[head] == 1)
-                    {
-                        isColored[adj[head][j]] = 2;
-                    }
-                    else
-                    {
-                        isColored[adj[head][j]] = 1;
-                    }
+                    // if an adjacent node is not colored color the opposite of head's color and push it to queue
+                    q.push(adjNode);
+                    isColored[adjNode] = !isColored[head];
                 }
-                else if (isColored[head] == isColored[adj[head][j]])
+                else if (isColored[head] == isColored[adjNode])
                     return false;
             }
         }
@@ -45,12 +38,12 @@ public:
     bool isBipartite(int V, vector<int> adj[])
     {
         // when a graph is not biparatite then it surely has a cycle with odd number of nodes in it 
-        vector<int> isColored(V, 0);
+        vector<int> isColored(V, -1);
 
         for (int i = 0; i < V; i++)
         {
             bool ans;
-            if (!isColored[i])
+            if (isColored[i] == -1)
             {
                 ans = color(i, isColored, adj);
             }
