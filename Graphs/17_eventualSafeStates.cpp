@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-
-
+// https://bit.ly/3C90n59
 class Solution {
     private:
     bool dfsCheck(int node, vector<int> adj[], vector<int
     > &isVisited, vector<int> &isPathVisited, vector<int> &check )  {
 
         // any node that is part of a cycle is not a safe node 
+        // any node that is connected to a member node of a cycle is not safe node
     
 
         isVisited[node] = 1;
