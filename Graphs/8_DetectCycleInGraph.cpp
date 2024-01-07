@@ -14,8 +14,7 @@ class Solution {
         while (q.size() != 0)
         {
             int currentNode = q.front().first;
-            int preNode = q.front().second;
-            auto p = q.front();
+            int preNode = q.front().second; 
             q.pop();
             for (int adjNode : adj[currentNode])
             {
