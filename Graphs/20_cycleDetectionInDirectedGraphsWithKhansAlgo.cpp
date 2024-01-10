@@ -22,11 +22,11 @@ public:
             if (inDegree[i] == 0)
                 q.push(i);
         }
-        vector<int> ans;
+        int ans;
         while (!q.empty())
         {
             int x = q.front();
-            ans.push_back(x);
+            ans++;
             q.pop();
             for (auto node : adj[x])
             {
@@ -35,7 +35,7 @@ public:
                     q.push(node);
             }
         }
-        return ans.size() != V;
+        return ans != V;
     }
 };
 
