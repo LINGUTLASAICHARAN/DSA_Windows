@@ -22,7 +22,7 @@ public:
             if (inDegree[i] == 0)
                 q.push(i);
         }
-        int ans;
+        int ans = 0 ;
         while (!q.empty())
         {
             int x = q.front();
