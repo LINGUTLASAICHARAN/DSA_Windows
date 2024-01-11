@@ -4,8 +4,8 @@ using namespace std;
 
 int main() {
 
-    int a = 10;
-    int * x = &a;
-    cout << abs(-5);
+    set<int> s;
+    s.insert(1);
+    s.erase(4);
 
 }
