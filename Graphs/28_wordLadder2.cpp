@@ -25,6 +25,7 @@ public:
             if(vec.size() > level){
                 level++;
                 for(auto it : visAtLevel) st.erase(it);
+                visAtLevel.clear();
             }
 
 
