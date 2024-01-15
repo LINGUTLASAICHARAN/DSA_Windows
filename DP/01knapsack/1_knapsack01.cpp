@@ -49,12 +49,12 @@ int main() {
     int N = sizeof(weights) / sizeof(weights[0]);
     int Capacity = 22;
 
-    cout << maxFill(profits,weights, N, Capacity) <<endl;
-    cout << maxFillMemoized(profits, weights, N, Capacity) << endl;
+    cout << "Reusrsive : "<<maxFill(profits,weights, N, Capacity) <<endl;
+    cout << "Memoised : "<< maxFillMemoized(profits, weights, N, Capacity) << endl;
 
 
     // dp
-    
+
     // since the only variables are capacity and problem size n we need to have storage to each corresponding tuple (n, cap) each varying from 0 to max value
     vector<vector<int>> dp(N+1, vector<int>(Capacity+1));
 
@@ -84,6 +84,6 @@ int main() {
         
     }
     
-    cout << dp[N][Capacity] <<endl;
+    cout <<"Taulation : " <<dp[N][Capacity] <<endl;
     return 0;
 }
