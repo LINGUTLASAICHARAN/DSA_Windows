@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 void getPowerSet(vector<int> &a , int N , int idx , vector<int>set , vector<vector<int>>&powerSet){
+    // base case is when the index becomes grater than N because we are making decisions from index 0 to n-1
     if(idx >= N){
-        powerSet.push_back(set);//no more decision making  add the given sub set
+        powerSet.push_back(set);//no more decision making add the given sub set
         return;
     }
     else{// branch at each decision making creating two paths
@@ -35,7 +36,7 @@ int main(){
     vector<vector<int>> powerSet;
     vector<int> subset;
     int si = 0;
-    getPowerSet(myset , myset.size(),si , subset,powerSet);
+    getPowerSet(myset , myset.size(), si , subset,powerSet);
     print(powerSet);
     return 0;
 }
