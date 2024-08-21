@@ -2,6 +2,46 @@
 
 using namespace std;
 
+
+
+// log(n)
+void heapify(vector<int> &v, int size, int curr)
+{
+    int largest = curr; // assume current node is the largest one
+
+    // left is 2 * i and right is 2 * i + 1 in 1 based indexing and left is 2 * i + 1 , right is 2 * i + 2 in  0 based indexing
+    int left = 2 * curr, right = 2 * curr + 1;
+
+    // compare left and right with largest to find out the real largest one
+    if (left <= size && v[left] > v[largest])
+    {
+        largest = left;
+    }
+    if (right <= size && v[right] > v[largest])
+    {
+        largest = right;
+    }
+
+    if (curr != largest)
+    {
+        swap(v[curr], v[largest]);
+        heapify(v, size, largest);
+    }
+}
+
+void heapSort(vector<int> &v, int size) {
+
+    while (size > 1)
+    {
+        swap(v[1], v[size]);
+        size--;
+
+        // call heapify on root
+        heapify(v,size,1);
+    }
+    
+}
+
 class MaxHeap
 {
     // array based implementation
@@ -49,75 +89,31 @@ public:
         v[1] = v[v.size() - 1]; // move last element to root element
         v.pop_back();
 
-        // take root to correct position
+        // take root to correct position by using heapify algo
         int size = v.size() - 1;
 
-        int i = 1;
-
-        while (i <= size)
-        {
-            int left = 2 * i;
-            int right = 2 * i + 1;
-
-            if (left <= size && v[i] < v[left])
-            {
-                swap(v[i], v[left]);
-                i = left;
-            }
-            else if (right <= size && v[i] < v[right])
-            {
-                swap(v[i], v[right]);
-                i = right;
-            }
-            else
-            {
-                return;
-            }
-        }
+        heapify(v, size, 1);
     }
 };
-
-// log(n)
-void heapify(vector<int> &v, int size, int curr)
-{
-    int largest = curr; // assume current node is the largest one
-
-    // left is 2 * i and right is 2 * i + 1 in 1 based indexing and left is 2 * i + 1 , right is 2 * i + 2 in  0 based indexing
-    int left = 2 * curr, right = 2 * curr + 1;
-
-    // compare left and right with largest to find out the real largest one
-    if (left <= size && v[left] > v[largest])
-    {
-        largest = left;
-    }
-    if (right <= size && v[right] > v[largest])
-    {
-        largest = right;
-    }
-
-    if (curr != largest)
-    {
-        swap(v[curr], v[largest]);
-        heapify(v, size, largest);
-    }
-}
 int main()
 {
 
     MaxHeap maxheap = MaxHeap();
-    maxheap.insert(50);
-    maxheap.insert(55);
-    maxheap.insert(53);
-    maxheap.insert(52);
-    maxheap.insert(54);
+    maxheap.insert(5);
+    maxheap.insert(3);
+    maxheap.insert(4);
+    maxheap.insert(2);
     maxheap.deleteFromHeap();
     maxheap.print();
 
-    vector<int> v{-1, 54, 53, 55, 52, 50};
-    int size = 5;
+    vector<int> v{-1, 54, 53, 55, 52, 50,-10};
+    int size = 6;
 
-    // leaf nodes are from n/2 to n in 1 based indexing    and   n/2 to n-1 in 0 based indexing
-    // so you only have to process the nodes forn n/2 - 1 to 1 in based indexing and n/2-1 to 0 in 0 based indexing
+    // building heap from this array using heapify algorithm
+
+    /*  leaf nodes are from n/2 to n in 1 based indexing    and   n/2 to n-1 in 0 based indexing
+        so you only have to process the nodes forn n/2 - 1 to 1 in based indexing and n/2-1 to 0 in 0 based indexing
+    */
 
     for (int i = size / 2 - 1; i > 0; i--)
     {
@@ -129,5 +125,13 @@ int main()
         cout << v[i] << " ";
     }
     cout << endl;
+
+    heapSort(v,size);
+
+    for(auto ele  : v) {
+        cout << ele << " ";
+    }
+    cout <<endl;
+    
     return 0;
 }
